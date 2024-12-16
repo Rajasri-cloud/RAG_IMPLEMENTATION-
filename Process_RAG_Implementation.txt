@@ -1,13 +1,10 @@
 Step-by-Step Implementation Guide
-
 Step 1: Data Extraction
-
 Identify Sources:
-
 Determine which web sites incorporate applicable information. For dependent information, search for tables and spreadsheets. For unstructured information, don't forget articles, blogs, and documents.
-
 PYTHON CODE:-
 
+-------------------------------------------------------------------------------------------------------------------------------------
 import requests
 from bs4 import BeautifulSoup
 url = 'https://instance.com'
@@ -17,15 +14,13 @@ soup = BeautifulSoup(response.text, 'html.parser')
 information = soup.find_all('div', class_='information-class')
 
 Step 2: Data Storage and Indexing
-
 Storage:
 Structured Data: Use SQL databases like MySQL or PostgreSQL.
 Unstructured Data: Use NoSQL databases like MongoDB or Elasticsearch.
 Indexing:
 Tool: Elasticsearch is good for indexing and querying big quantities of unstructured information.
-
 PYTHON CODE:-
-
+-------------------------------------------------------------------------------------------------------------------------------------
 from elasticsearch import Elasticsearch
 es = Elasticsearch()
 es.index(index='information-index', doc_type='_doc', body={
@@ -50,6 +45,7 @@ question = {
 
 }
 outcomes = es.seek(index='information-index', body=question)
+-------------------------------------------------------------------------------------------------------------------------------------
 Relevance Scoring:
 Elasticsearch mechanically ratings the relevance of the outcomes primarily based totally at the question.
 
@@ -60,6 +56,7 @@ Use GPT-three or comparable models. OpenAI's GPT-three API may be applied for th
 
 PYTHON CODE:-
 
+-------------------------------------------------------------------------------------------------------------------------------------
 import openai
 openai.api_key = 'your-api-key'
 prompt = 'Based on the subsequent information, generate a response:'
@@ -70,6 +67,7 @@ response = openai.Completion.create(
     max_tokens=150
 )
 print(response.choices[0].text.strip())
+-------------------------------------------------------------------------------------------------------------------------------------
 Augmentation:
 Combine retrieved information with the person's question earlier than sending it to the language version to generate a greater applicable response.
 Step 5: Integration and Deployment
@@ -77,6 +75,7 @@ API Integration:
 
 Develop an API the usage of Flask or FastAPI to deal with person requests and combine the RAG pipeline.
 
+-------------------------------------------------------------------------------------------------------------------------------------
 from flask import Flask, request, jsonify
 app = Flask(__name__)
 @app.route('/question', methods=['POST'])
@@ -87,3 +86,5 @@ def question():
     go back jsonify(response)
 if __name__ == '__main__':
     app.run(debug=True);
+
+-------------------------------------------------------------------------------------------------------------------------------------
